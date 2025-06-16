@@ -15,7 +15,7 @@ function App() {
         setData(json);
       } catch (err) {
         setError(err.message);
-        console.error("❌ API Error:", err);
+        console.error("API Error:", err);
       }
     };
 
@@ -28,7 +28,7 @@ function App() {
   const labels = Object.keys(data.sp500);
   const sp500Values = Object.values(data.sp500);
   const nasdaqValues = Object.values(data.nasdaq);
-  const botEquityLine = Array(labels.length).fill(data.bot_equity);
+  const botEquityLine = Object.values(data.bot_equity);
 
   const chartData = {
     labels,
@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div style={{ width: "80%", margin: "auto" }}>
-      <h2>Trading Bot vs. Market Indices</h2>
+      <h2>Trading Bot vs. Market Indices (30d)</h2>
       <Line data={chartData} />
     </div>
   );
