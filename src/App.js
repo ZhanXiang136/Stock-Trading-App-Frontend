@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
+import './App.css';
 
 function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   useEffect(() => {
     const fetchPerformance = async () => {
@@ -13,6 +15,7 @@ function App() {
         if (!res.ok) throw new Error("Failed to fetch performance data");
         const json = await res.json();
         setData(json);
+        setLastUpdated(new Date()); // ⏰ store timestamp when data was fetched
       } catch (err) {
         setError(err.message);
         console.error("API Error:", err);
@@ -20,9 +23,9 @@ function App() {
     };
 
     fetchPerformance();
-  }, []);
+  }, []); // 🔁 Only fetch on page load
 
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p className="error">Error: {error}</p>;
   if (!data) return <p>Loading...</p>;
 
   const labels = Object.keys(data.sp500);
@@ -55,9 +58,14 @@ function App() {
   };
 
   return (
-    <div style={{ width: "80%", margin: "auto" }}>
+    <div className="chart-container">
       <h2>Trading Bot vs. Market Indices (30d)</h2>
       <Line data={chartData} />
+      {lastUpdated && (
+        <p className="last-updated">
+          Last Updated: {lastUpdated.toLocaleString()} EST
+        </p>
+      )}
     </div>
   );
 }
