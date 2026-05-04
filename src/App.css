@@ -1,21 +1,14 @@
-/* Reset & base */
-body {
+* {
+  box-sizing: border-box;
+}
+
+h1 {
   margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  background-color: #f9f9fb;
-  color: #333;
-  line-height: 1.6;
-}
-
-h2 {
-  text-align: center;
-  margin-top: 40px;
   color: #1a202c;
-  font-size: 2rem;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.2;
 }
 
-/* Chart container */
 .chart-container {
   width: 90%;
   max-width: 900px;
@@ -26,7 +19,37 @@ h2 {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Loading/Error styles */
+.chart-header {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.chart-header button {
+  background: #1a202c;
+  border: 0;
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95rem;
+  min-height: 40px;
+  padding: 8px 16px;
+  white-space: nowrap;
+}
+
+.chart-header button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.chart-frame {
+  height: min(60vh, 480px);
+  min-height: 320px;
+}
+
 p {
   text-align: center;
   font-size: 1.1rem;
@@ -34,7 +57,48 @@ p {
 }
 
 .error {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 8px;
   color: #e63946;
+  padding: 12px;
+}
+
+.warning-panel {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  color: #713f12;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+}
+
+.warning-panel p {
+  color: inherit;
+  font-size: 0.95rem;
+  margin: 0 0 8px;
+  text-align: left;
+}
+
+.warning-panel ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.warning-panel li {
+  font-size: 0.95rem;
+}
+
+.empty-state {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #475569;
+  padding: 32px 16px;
+}
+
+.status-message {
+  margin: 40px auto;
 }
 
 .last-updated {
@@ -42,4 +106,25 @@ p {
   text-align: center;
   font-size: 0.95rem;
   color: #666;
+}
+
+@media (max-width: 640px) {
+  .chart-container {
+    margin: 20px auto;
+    padding: 20px;
+    width: calc(100% - 24px);
+  }
+
+  .chart-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .chart-header button {
+    width: 100%;
+  }
+
+  .chart-frame {
+    min-height: 280px;
+  }
 }
